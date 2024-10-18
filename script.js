@@ -1,11 +1,14 @@
 'use strict';
 
-const weight = 65;
-const height = 1.70;
-console.log('体重' + weight + 'kg/身長' + (height * 100) + 'cmのBMI');
-console.log(weight / (height * height));
+const bmi = window.prompt('BMIの値を入力してください');
+const p_element = document.getElementById('message');
+p_element.textContent = (`あなたのBMIは${bmi}:`);
 
-let who = 'World';
-console.log('Hello' + who);
-who = "everyone";
-console.log('Good Morning!' + who);
+if (bmi > 25) {
+  p_element.textContent += '肥満です';
+} else if (bmi < 18.5) {
+  p_element.textContent += '低体重です';
+} else {
+  p_element.textContent += '適正体重です';
+};
+
