@@ -1,14 +1,32 @@
 'use strict';
 
-const bmi = window.prompt('BMIの値を入力してください');
-const p_element = document.getElementById('message');
-p_element.textContent = (`あなたのBMIは${bmi}:`);
+for (let i = 0; i < 5; i += 1) {
+  console.log('Hello world!');
+}
 
-if (bmi > 25) {
-  p_element.textContent += '肥満です';
-} else if (bmi < 18.5) {
-  p_element.textContent += '低体重です';
-} else {
-  p_element.textContent += '適正体重です';
-};
+for (let biscuit = 1; biscuit <= 128; biscuit *= 2) {
+  console.log(`ポケットを叩くとビスケットが${biscuit}つ`);
+}
 
+for (let a = 1; a <= 9; a += 1) {
+  for (let b = 1; b <= 9; b += 1) {
+    console.log(`${a} × ${b} = ${a * b}`);
+  }
+}
+
+for (const servant of ['犬', '猿', '雉']) {
+  for (let n = 1; n <= 3; n += 1) {
+    console.log(`${servant}${n}号！`);
+  }
+}
+
+const element = document.createElement('p');
+element.textContent = 'Hello World!!';
+document.body.appendChild(element);
+
+const ul = document.getElementById('list');
+for (let i = 0; i < 5; i += 1) {
+  const li = document.createElement('li');
+  li.textContent = `子要素${i}号`;
+  ul.appendChild(li);
+}
