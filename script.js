@@ -2,42 +2,49 @@
 
 console.log('Hello World!!');
 
-const array = [1, 2, 'dog!', 1, 2, 'cat!'];
+const evList = [
+  { name: 'サンダース', type: 'でんき', weight: 24.5, ability: 'ちくでん' },
+  { name: 'ブースター', type: 'ほのお', weight: 25.0, ability: 'もらいび' },
+  { name: 'エーフィ', type: 'エスパー', weight: 26.5, ability: 'シンクロ' },
+  { name: 'ブラッキー', type: 'あく', weight: 27.0, ability: 'シンクロ' },
+  { name: 'リーフィア', type: 'くさ', weight: 25.5, ability: 'リーフガード' },
+  { name: 'ニンフィア', type: 'フェアリー', weight: 23.5, ability: 'メロメロボディ' },
+  { name: 'グレイシア', type: 'こおり', weight: 25.9, ability: 'ゆきがくれ' },
+  { name: 'シャワーズ', type: 'みず', weight: 29.0, ability: 'ちょすい' },
+];
 
-console.log(array[0]); // → 1
-const animal = array[2];
-console.log(animal); // → dog!
-array[3] = 'pig!';   // arrayの“要素”は定数ではないので代入可
-array[4] += array[0];
-console.log(array); // → [1, 2, 'dog!', 'pig!', 3, 'cat!']
-
-const arrayone = [1, 2, 3, 'dah', '!!'];
-
-for (let i = 0; i < 5; i += 1) {
-  console.log(arrayone[i]); // → 1, 2, 3, dah, !!
-  arrayone[i] = i;  // 要素の値の書き換え
+for (const ev of evList) {
+  console.log(`${ev.name}のタイプは${ev.type}です`);
 }
 
-console.log(arrayone); // → [0, 1, 2, 3, 4]
+const nameList = evList
+  .filter((ev) => ev.weight > 25) // 条件式でオブジェクトを抽出
+  .map((ev) => `${ev.name}（${ev.weight}kg）`);  // 加工
 
-const arraytwo = [1, 2, 3];
-
-arraytwo.push(4);     // 末尾に追加 [1, 2, 3, 4]
-arraytwo.unshift(0);  // 先頭に追加 [0, 1, 2, 3, 4]
-arraytwo.pop();       // 末尾の要素を削除 [0, 1, 2, 3]
-arraytwo.shift();     // 先頭の要素を削除 [1, 2, 3]
-
-// console.logを使って確認してみてください
-console.log(arraytwo);
-
-const Oldarray = [1, 2, 3];
-
-const newArray = Oldarray.map((el) => el + '号');
-console.log(newArray);  // → [1号, 2号, 3号]
-
-// 同じ処理をfor-of文で描くと…
-const newArray2 = [];
-for (const el of Oldarray) {
-  newArray2.push(el + '号');
+// nameListは普通の配列
+for (const n of nameList) {
+  console.log(n);  // エーフィ（26.5kg） → ブラッキー（27.0kg) → ...
 }
 
+const table = document.querySelector('table');
+const tr = document.createElement('tr');
+const header = ['名前', 'タイプ', '体重', '特技'];
+
+for (const h of header) {
+  const th = document.createElement('th');
+  th.textContent = h;
+  tr.appendChild(th);
+}
+
+table.appendChild(tr);
+
+
+for (const ev of evList) {
+  const tr = document.createElement('tr');
+  for (const prop in ev) {
+    const td = document.createElement('td');
+    td.textContent = ev[prop];
+    tr.appendChild(td);
+  }
+  table.appendChild(tr);
+}
