@@ -1,3 +1,6 @@
 'use strict';
 
-console.log('Hello World!!');
+const ul = document.getElementById('list');
+const newLi = document.createElement('li');
+newLi.textContent = 'DOM!!';
+ul.appendChild(newLi);
