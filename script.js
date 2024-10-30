@@ -1,21 +1,34 @@
 'use strict';
 
-// a要素とimg要素のエレメントを取得
-const a = document.getElementById('link');
-const img = a.firstElementChild;
+const button = document.querySelector('button');
+console.log(button);
 
-// 属性値を書き換えることもできる
-console.log(`元のリンクURL: ${a.href}`);
-a.href = 'https://loremflickr.com/320/240/dog';
+button.addEventListener('click', () => {
+  const p = document.getElementById('target');
+  p.classList.toggle('myStyle');
+});
 
-// つまり、JavaScript側で画像を差し替えることもできる
-console.log(`元の画像ソース: ${img.src}`);
-img.src = 'https://loremflickr.com/320/240/dog';
+button.addEventListener('click', () => {
+  const p = document.getElementById('target');
+  p.classList.toggle('newStyle');
+});
 
-// a要素のtarget属性の値によってテキストノードの内容を場合分け
+button.addEventListener('mouseenter', () => {
+  const p = document.getElementById('target');
+  p.style.fontSize = '1.5em';
+});
 
-// class属性が設定されていない2番目のp要素を取得
-const p = document.querySelectorAll('p')[1];
-console.log(p.className);  // → 何も表示されない
+button.addEventListener('mouseleave', () => {
+  const p = document.getElementById('target');
+  p.style.fontSize = '1em';
+});
 
-p.className = 'myStyle'; // class属性を追加
+const img = document.querySelector('imag')
+img.addEventListener('click', () => {
+  img.src = 'https://github.com/ugok-girls/ugok-girls.png';
+});
+
+window.addEventListener('resize', () => {
+  const p = document.getElementById('target');
+  p.style.backgroundColor = 'gold';
+});
