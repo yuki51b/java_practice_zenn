@@ -1,34 +1,14 @@
 'use strict';
 
-const button = document.querySelector('button');
-console.log(button);
-
-button.addEventListener('click', () => {
-  const p = document.getElementById('target');
-  p.classList.toggle('myStyle');
-});
-
-button.addEventListener('click', () => {
-  const p = document.getElementById('target');
-  p.classList.toggle('newStyle');
-});
-
-button.addEventListener('mouseenter', () => {
-  const p = document.getElementById('target');
-  p.style.fontSize = '1.5em';
-});
-
-button.addEventListener('mouseleave', () => {
-  const p = document.getElementById('target');
-  p.style.fontSize = '1em';
-});
-
-const img = document.querySelector('imag')
-img.addEventListener('click', () => {
-  img.src = 'https://github.com/ugok-girls/ugok-girls.png';
-});
-
-window.addEventListener('resize', () => {
-  const p = document.getElementById('target');
-  p.style.backgroundColor = 'gold';
-});
+const list = [
+  'images/01.jpg',
+  'images/02.jpg',
+  'images/03.jpg',
+  'images/04.jpg',
+  'images/05.jpg',
+  'images/06.jpg',
+  'images/07.jpg',
+  'images/08.jpg',
+  'images/09.jpg',
+  'images/10.jpg',
+];
