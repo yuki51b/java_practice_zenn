@@ -1,34 +1,95 @@
 'use strict';
 
-const button = document.querySelector('button');
-console.log(button);
+const list = [
+  'images/01.jpg',
+  'images/02.jpg',
+  'images/03.jpg',
+  'images/04.jpg',
+  'images/05.jpg',
+  'images/06.jpg',
+  'images/07.jpg',
+  'images/08.jpg',
+  'images/09.jpg',
+  'images/10.jpg',
+];
 
-button.addEventListener('click', () => {
-  const p = document.getElementById('target');
-  p.classList.toggle('myStyle');
+const img = document.getElementById('main');
+const [leftArrow, rightArrow] = document.getElementsByTagName('span');
+
+let imgN = 0;
+
+const p = document.createElement('p');
+p.style.color = 'lightgray';
+
+const div = document.getElementById('photo');
+div.insertBefore(p, img.nextElementSibling);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  setImage();
 });
 
-button.addEventListener('click', () => {
-  const p = document.getElementById('target');
-  p.classList.toggle('newStyle');
+rightArrow.addEventListener('click', () => {
+  imgN += 1;
+  if (imgN >= list.length) {
+    imgN = list.length - 1;
+  }
+  setImage();
 });
 
-button.addEventListener('mouseenter', () => {
-  const p = document.getElementById('target');
-  p.style.fontSize = '1.5em';
+leftArrow.addEventListener('click', () => {
+  imgN -= 1;
+  if (imgN < 0){
+    imgN = 0;
+  }
+  setImage();
 });
 
-button.addEventListener('mouseleave', () => {
-  const p = document.getElementById('target');
-  p.style.fontSize = '1em';
+function setImage(){
+  img.src = list[imgN];
+  p.textContent = `${imgN + 1} / ${list.length}`;
+}
+
+
+const playButton = document.createElement('button');
+playButton.textContent = '自動再生する';
+div.appendChild(playButton);
+
+let autoplay = false;
+playButton.addEventListener('click', () => {
+  if (autoplay == false){
+    playButton.textContent = '無効';
+    autoplay = setInterval(() => {
+  imgN += 1;
+  if (imgN >= list.length) {
+    imgN = 0;
+  }
+  setImage();
+}, 500);
+  }
 });
 
-const img = document.querySelector('imag')
-img.addEventListener('click', () => {
-  img.src = 'https://github.com/ugok-girls/ugok-girls.png';
+
+const stopButton = document.createElement('button');
+stopButton.textContent = '停止する';
+div.appendChild(stopButton);
+
+stopButton.addEventListener('click', () => {
+  clearInterval(autoplay);
 });
 
-window.addEventListener('resize', () => {
-  const p = document.getElementById('target');
-  p.style.backgroundColor = 'gold';
-});
+
+
+
+// let count = 0;
+// document.body.style.color = 'white';
+
+// const countID = setInterval(() => {
+//   document.body.textContent = count;
+//   count += 1;
+//   if (count > 5) {
+//     clearInterval(countID);  // 繰り返し停止
+//     document.body.textContent += ' stopped!!';
+//   }
+// }, 1000);
+
