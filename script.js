@@ -1,95 +1,48 @@
 'use strict';
 
-const list = [
-  'images/01.jpg',
-  'images/02.jpg',
-  'images/03.jpg',
-  'images/04.jpg',
-  'images/05.jpg',
-  'images/06.jpg',
-  'images/07.jpg',
-  'images/08.jpg',
-  'images/09.jpg',
-  'images/10.jpg',
-];
+const p = document.getElementById('output'); // 出力用のp要素
 
-const img = document.getElementById('main');
-const [leftArrow, rightArrow] = document.getElementsByTagName('span');
-
-let imgN = 0;
-
-const p = document.createElement('p');
-p.style.color = 'lightgray';
-
-const div = document.getElementById('photo');
-div.insertBefore(p, img.nextElementSibling);
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  setImage();
-});
-
-rightArrow.addEventListener('click', () => {
-  imgN += 1;
-  if (imgN >= list.length) {
-    imgN = list.length - 1;
+// ［表示］ボタンを押したら…
+document.querySelector('button').addEventListener('click', () => {
+  // 今回のコードはここに書いていきます
+  const text = document.getElementById('textInput');
+  p.textContent = text.value;
+  const password = document.getElementById('password');
+  p.textContent = password.value;
+  const radio = document.getElementsByName('abcRadio');
+  for (const btn of radio){
+    if (btn.checked == true){
+      p.textContent = btn.value;
+    }
+    const checkbox = document.getElementsByName('abcCheck');
+    const values = [];
+    for (const box of checkbox) {
+      if (box.checked == true) {
+        values.push(box.value);
+      }
+    }
+  p.textContent = values;
   }
-  setImage();
-});
+  const select = document.querySelector('select');
+  p.textContent = select.value;
 
-leftArrow.addEventListener('click', () => {
-  imgN -= 1;
-  if (imgN < 0){
-    imgN = 0;
+  const multiSelect = document.querySelector('select[multiple]');
+  const multi = [];
+  for (const opt of multiSelect.options){
+    if (opt.selected == true){
+      multi.push(opt.value);
+    }
   }
-  setImage();
+  p.textContent = multi;
 });
 
-function setImage(){
-  img.src = list[imgN];
-  p.textContent = `${imgN + 1} / ${list.length}`;
-}
-
-
-const playButton = document.createElement('button');
-playButton.textContent = '自動再生する';
-div.appendChild(playButton);
-
-let autoplay = false;
-playButton.addEventListener('click', () => {
-  if (autoplay == false){
-    playButton.textContent = '無効';
-    autoplay = setInterval(() => {
-  imgN += 1;
-  if (imgN >= list.length) {
-    imgN = 0;
-  }
-  setImage();
-}, 500);
-  }
+const text = document.getElementById('textInput');
+text.addEventListener('change', () => {
+  p.textContent = text.value;
 });
 
+const form = document.querySelector('form');
 
-const stopButton = document.createElement('button');
-stopButton.textContent = '停止する';
-div.appendChild(stopButton);
-
-stopButton.addEventListener('click', () => {
-  clearInterval(autoplay);
+form.addEventListener('submit', (ev) => {
+  ev.preventDefault();
 });
-
-
-
-
-// let count = 0;
-// document.body.style.color = 'white';
-
-// const countID = setInterval(() => {
-//   document.body.textContent = count;
-//   count += 1;
-//   if (count > 5) {
-//     clearInterval(countID);  // 繰り返し停止
-//     document.body.textContent += ' stopped!!';
-//   }
-// }, 1000);
-
