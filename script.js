@@ -1,48 +1,56 @@
 'use strict';
 
-const p = document.getElementById('output'); // 出力用のp要素
+const storage = localStorage;
+const input = document.querySelector('input');    // input要素
+const output = document.getElementById('output'); // div#output要素
+const submit = document.getElementById('submit'); // button#submit要素
 
-// ［表示］ボタンを押したら…
-document.querySelector('button').addEventListener('click', () => {
-  // 今回のコードはここに書いていきます
-  const text = document.getElementById('textInput');
-  p.textContent = text.value;
-  const password = document.getElementById('password');
-  p.textContent = password.value;
-  const radio = document.getElementsByName('abcRadio');
-  for (const btn of radio){
-    if (btn.checked == true){
-      p.textContent = btn.value;
-    }
-    const checkbox = document.getElementsByName('abcCheck');
-    const values = [];
-    for (const box of checkbox) {
-      if (box.checked == true) {
-        values.push(box.value);
-      }
-    }
-  p.textContent = values;
+const ul = document.createElement('ul');
+output.appendChild(ul);
+
+let listItems = JSON.parse(storage.store);
+submit.addEventListener('click', () => {
+  // output.textContent = input.value; // div要素に表示
+  // storage.store = input.value; // 'store'キーに入力値を記録
+  const li = document.createElement('li');
+  li.textContent = input.value;
+  ul.appendChild(li);
+
+  listItems.push(input.value);
+  storage.store = JSON.stringify(listItems);
+
+  input.value = '';
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (storage.store != undefined){
+  // output.textContent = storageData;
+  listItems = JSON.parse(storage.store);
+  //   output.textContent = 'ここに内容を表示します'
   }
-  const select = document.querySelector('select');
-  p.textContent = select.value;
-
-  const multiSelect = document.querySelector('select[multiple]');
-  const multi = [];
-  for (const opt of multiSelect.options){
-    if (opt.selected == true){
-      multi.push(opt.value);
-    }
+  for (const item of listItems) {
+    const li = document.createElement('li');
+    li.textContent = item;
+    ul.appendChild(li);
   }
-  p.textContent = multi;
 });
 
-const text = document.getElementById('textInput');
-text.addEventListener('change', () => {
-  p.textContent = text.value;
+const remove = document.createElement('button');
+remove.textContent = 'ストレージデーターを削除';
+document.body.insertBefore(remove, output.nextElementSibling);
+
+remove.addEventListener('click', () => {
+  delete storage.store;
+  ul.textContent = '';
+  listItems = [];
 });
 
-const form = document.querySelector('form');
+const link = document.createElement('button');
+link.textContent = '別ページへ飛ぶ';
+document.body.insertBefore(link, remove)
 
-form.addEventListener('submit', (ev) => {
-  ev.preventDefault();
-});
+link.addEventListener('click', () =>{
+  location.href = 'page.html';
+})
+
